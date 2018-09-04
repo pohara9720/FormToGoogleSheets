@@ -84,6 +84,9 @@
 			    data: info,
 				success:(response) => { 
 				  	console.log('Success',response)
+				  	$('#submit').addClass('hide')
+				  	$('.inputs').empty()
+				  	$('.inputs').append(`<h1 style='text-align: center;'>Thank you your form has been submitted!</h1>`)
 				},
 				error: (err) => {
 		  			console.log('Error',err)
