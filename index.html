@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Openpay</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300 600" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<div class="container">
+		<img class='logo' src='openpay.png'/>
+		<div class="inputs">
+			<label>*First Name</label>
+			<input name='first' id='firstName' type="text">
+			<label>*Last Name</label>
+			<input name='last' id='lastName' type="text">
+			<label>*Company</label>
+			<input name='company' id='company' type="text">
+			<label>*Work Email</label>
+			<input name='email' id='workEmail' type="text">
+			<label>Website Address</label>
+			<input name='website' id='website' type="text">
+		</div>
+		<a href='TSCaseStudy.pdf' download><button id='submit' disabled>Submit</button></a>
+	</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+	// https://medium.com/@dmccoy/how-to-submit-an-html-form-to-google-sheets-without-google-forms-b833952cc175
+		
+		const info ={}
+		const url = 'https://script.google.com/macros/s/AKfycbz7NLkYpJzsYDGhke8PE4hPGm4_IyYy_ZwSUEk6mX2KIVGO_RkG/exec'
+
+		
+
+		$('input').on('input',function(){
+			checkInfo()
+		})
+
+		const checkInfo = () =>{
+			if($('#firstName').val() === ''){
+				$('#submit').attr("disabled", "disabled")
+				$('#submit').addClass('disabled')
+			}else{
+				$('#submit').removeClass('disabled')
+				$('#submit').removeAttr("disabled")
+			}
+			if($('#lastName').val() === ''){
+				$('#submit').attr("disabled", "disabled")
+				$('#submit').addClass('disabled')
+			}else{
+				$('#submit').removeClass('disabled')
+				$('#submit').removeAttr("disabled")
+			}
+			if($('#company').val() === ''){
+				$('#submit').attr("disabled", "disabled")
+				$('#submit').addClass('disabled')
+			}else{
+				$('#submit').removeClass('disabled')
+				$('#submit').removeAttr("disabled")
+			}
+			if($('#workEmail').val() === ''){
+				$('#submit').attr("disabled", "disabled")
+				$('#submit').addClass('disabled')
+			}else{
+				$('#submit').removeClass('disabled')
+				$('#submit').removeAttr("disabled")
+			}
+		}
+		
+		checkInfo()
+
+
+
+		sendInfo = (info) => {
+			// e.preventDefault();
+			console.log(info)
+			$.ajax({
+			    url: url,
+			    method: "GET",
+			    dataType: "json",
+			    data: info,
+				success:(response) => { 
+				  	console.log('Success',response)
+				},
+				error: (err) => {
+		  			console.log('Error',err)
+		  		}
+			})
+		}
+
+		$('#submit').on('click',function(){
+			info.first = $('#firstName').val()
+			info.last = $('#lastName').val()
+			info.company = $('#company').val()
+			info.email = $('#workEmail').val()
+			info.website = $('#website').val()
+			console.log(info)
+			sendInfo(info)
+		})
+</script>
+</body>
+</html>
